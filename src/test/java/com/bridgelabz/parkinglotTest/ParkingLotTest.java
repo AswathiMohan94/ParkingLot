@@ -1,6 +1,7 @@
 package com.bridgelabz.parkinglotTest;
 
 import com.bridgelabz.parkinglot.ParkingLotException;
+import com.bridgelabz.parkinglot.ParkingLotOwner;
 import com.bridgelabz.parkinglot.ParkingLotSystem;
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,7 +12,7 @@ public class ParkingLotTest {
     Object vehicle = null;
     @Before
     public void setUp() {
-        parkingLotSystem = new ParkingLotSystem();
+        parkingLotSystem = new ParkingLotSystem(2);
         vehicle = new Object();
     }
     @Test
@@ -43,15 +44,31 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle);
             boolean isUnParked = parkingLotSystem.unPark(vehicle);
             Assert.assertTrue(isUnParked);
-        } catch (ParkingLotException e) {
-            e.printStackTrace();
-        }
+        } catch (ParkingLotException e) { }
 
     }
-    //new
+    @Test
+    public void givenWhenParkingLotIsFull_ShouldInformOwner () {
+        ParkingLotOwner owner = new ParkingLotOwner();
+        parkingLotSystem.registerOwner(owner);
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(new Object());
+        } catch (ParkingLotException e) { }
+        boolean capacityFull = owner.isCapacityFull();
+        Assert.assertTrue(capacityFull);
+    }
 
-
-  /*  @Test
-    public void givenVehicle_NotEqualTo () {
-    }*/
+    @Test
+    public void givenCapacityIs2_ShouldBeAbleToPark2Vehicles(){
+        Object vehicle2= new Object();
+        parkingLotSystem.setCapacity(2);
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(vehicle2);
+            boolean isParked1 =parkingLotSystem.isVehicleParked(vehicle);
+            boolean isParked2 =parkingLotSystem.isVehicleParked(vehicle2);
+            Assert.assertTrue(isParked1 && isParked2);
+        } catch (ParkingLotException e) { }
+    }
 }
