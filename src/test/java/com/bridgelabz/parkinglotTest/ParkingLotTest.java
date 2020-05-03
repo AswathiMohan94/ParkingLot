@@ -8,6 +8,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+
+
 public class ParkingLotTest {
     ParkingLotSystem parkingLotSystem = null;
     Object vehicle = null;
@@ -49,8 +51,6 @@ public class ParkingLotTest {
             boolean isUnParked = parkingLotSystem.unPark(vehicle);
             Assert.assertTrue(isUnParked);
         } catch (ParkingLotException e) { }
-
-
     }
     @Test
     public void givenWhenParkingLotIsFull_ShouldInformOwner () {
@@ -88,18 +88,29 @@ public class ParkingLotTest {
         Assert.assertTrue(capacityFull);
     }
     @Test
-    public void givenWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnTrue(){
+    public void givenWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnTrue() throws ParkingLotException {
         Object vehicle2 = new Object();
         ParkingLotOwner owner = new ParkingLotOwner();
         parkingLotSystem.registerParkingLotObserver(owner);
         try {
             parkingLotSystem.park(vehicle);
-            parkingLotSystem.park(new Object());
+            parkingLotSystem.park(vehicle2);
         } catch (ParkingLotException e) {
             parkingLotSystem.unPark(vehicle);
             boolean capacityFull = owner.isCapacityFull();
             Assert.assertFalse(capacityFull);
         }
 
+    }
+    @Test
+    public void givenWhenVehicleParkedIsNull_ShouldReturnFalse() throws ParkingLotException {
+        try {
+            vehicle2 = null;
+            parkingLotSystem.isVehicleParked(vehicle);
+            parkingLotSystem.isVehicleParked(vehicle2);
+        } catch (Exception e) {
+            boolean checkNull = vehicle.equals(vehicle2);
+            Assert.assertFalse(checkNull);
+        }
     }
 }

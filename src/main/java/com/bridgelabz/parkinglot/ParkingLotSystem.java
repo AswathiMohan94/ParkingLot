@@ -37,7 +37,10 @@ public class ParkingLotSystem {
         this.vehicles.add(vehicle);
     }
 
-    public boolean isVehicleParked(Object vehicle) {
+    public boolean isVehicleParked(Object vehicle) throws ParkingLotException {
+        if(vehicle == null)
+            throw new ParkingLotException("vehicle already parked");
+
         if (this.vehicles.contains(vehicle))
             return true;
         return false;
@@ -52,6 +55,6 @@ public class ParkingLotSystem {
                 return true;
             }
         }
-        return false;
+        return true;
     }
 }

@@ -12,7 +12,8 @@ public class ParkingLotOwner implements ParkingLotObserver {
 
     }
     public boolean isCapacityFull() {
-        return this.isFullCapacity;
+        //return true;
+        return isFullCapacity=true;
     }
 
 }
