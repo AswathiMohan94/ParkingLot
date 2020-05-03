@@ -128,5 +128,18 @@ public class ParkingLotTest {
             Assert.assertFalse(isCapacityFull);
         }
     }
+    @Test
+    public void givenWhenParkingLotIsFull_AirportSecurityShouldReturnFalse() throws ParkingLotException {
+        AirportSecurity security = new AirportSecurity();
+        parkingLotSystem.registerParkingLotObserver(security);
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(vehicle2);
+            parkingLotSystem.park(vehicle3);
+        } catch (Exception e) {
+            boolean isCapacityFull = vehicle.equals(vehicle2);
+            Assert.assertFalse(isCapacityFull);
+        }
+    }
 
 }
