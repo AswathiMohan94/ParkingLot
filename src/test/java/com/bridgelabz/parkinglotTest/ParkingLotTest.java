@@ -1,5 +1,6 @@
 package com.bridgelabz.parkinglotTest;
 
+import com.bridgelabz.parkinglot.AirportSecurity;
 import com.bridgelabz.parkinglot.ParkingLotException;
 import com.bridgelabz.parkinglot.ParkingLotOwner;
 import com.bridgelabz.parkinglot.ParkingLotSystem;
@@ -10,10 +11,13 @@ import org.junit.Test;
 public class ParkingLotTest {
     ParkingLotSystem parkingLotSystem = null;
     Object vehicle = null;
+    Object vehicle2 = null;
+
     @Before
     public void setUp() {
         parkingLotSystem = new ParkingLotSystem(2);
         vehicle = new Object();
+        vehicle2 = new Object();
     }
     @Test
     public void givenAVehicle_WhenParked_ShouldReturnTrue(){
@@ -50,7 +54,7 @@ public class ParkingLotTest {
     @Test
     public void givenWhenParkingLotIsFull_ShouldInformOwner () {
         ParkingLotOwner owner = new ParkingLotOwner();
-        parkingLotSystem.registerOwner(owner);
+        parkingLotSystem.registerParkingLotObserver(owner);
         try {
             parkingLotSystem.park(vehicle);
             parkingLotSystem.park(new Object());
@@ -71,4 +75,16 @@ public class ParkingLotTest {
             Assert.assertTrue(isParked1 && isParked2);
         } catch (ParkingLotException e) { }
     }
-}
+    @Test
+    public void givenWhenParkingLotIsFull_ShouldInformAirportSecurity () {
+        AirportSecurity airportSecurity = new AirportSecurity();
+        parkingLotSystem.registerParkingLotObserver(airportSecurity);
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(new Object());
+        } catch (ParkingLotException e) { }
+        boolean capacityFull = airportSecurity.isCapacityFull();
+        Assert.assertTrue(capacityFull);
+    }
+
+    }
