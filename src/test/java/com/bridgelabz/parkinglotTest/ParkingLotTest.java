@@ -12,6 +12,7 @@ import org.junit.Test;
 
 public class ParkingLotTest {
     ParkingLotSystem parkingLotSystem = null;
+    AirportSecurity airportSecurity = null;
     Object vehicle = null;
     Object vehicle2 = null;
     Object vehicle3 = null;
@@ -19,6 +20,7 @@ public class ParkingLotTest {
     @Before
     public void setUp() {
         parkingLotSystem = new ParkingLotSystem(2);
+        airportSecurity = new AirportSecurity();
         vehicle = new Object();
         vehicle2 = new Object();
         vehicle3 = new Object();
@@ -115,6 +117,7 @@ public class ParkingLotTest {
             Assert.assertFalse(checkNull);
         }
     }
+  //<<<<<<<<<<<<<<<<<<<-------- ADDED TEST CASES TO GET 100 PERCENT COVERAGE -------->>>>>>>>>>>>>>>
     @Test
     public void givenWhenParkingLotIsFull_OwnerShouldReturnFalse() throws ParkingLotException {
             ParkingLotOwner owner = new ParkingLotOwner();
@@ -124,8 +127,8 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle2);
             parkingLotSystem.park(vehicle3);
         } catch (Exception e) {
-            boolean isCapacityFull = vehicle.equals(vehicle2);
-            Assert.assertFalse(isCapacityFull);
+            boolean isCapacityFull = owner.isCapacityFull();
+            Assert.assertTrue(isCapacityFull);
         }
     }
     @Test
@@ -137,9 +140,42 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle2);
             parkingLotSystem.park(vehicle3);
         } catch (Exception e) {
-            boolean isCapacityFull = vehicle.equals(vehicle2);
-            Assert.assertFalse(isCapacityFull);
+            boolean isCapacityFull = security.isCapacityFull();
+            Assert.assertTrue(isCapacityFull);
         }
     }
+    @Test
+    public void givenIfSpaceIsAvailableInParkingLot_OwnerShouldReturnTrue() throws ParkingLotException {
+        ParkingLotOwner owner = new ParkingLotOwner();
+        parkingLotSystem.registerParkingLotObserver(owner);
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(vehicle2);
+            boolean isCapacityAvailable =parkingLotSystem.unPark(vehicle);
+            Assert.assertTrue(isCapacityAvailable);
+        } catch (Exception e) {
+        }
+    }
+    @Test
+    public void givenIfSpaceIsAvailableInParkingLot_AirportSecurityShouldReturnTrue() throws ParkingLotException {
+        AirportSecurity security = new AirportSecurity();
+        parkingLotSystem.registerParkingLotObserver(security);
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(vehicle2);
+            boolean isCapacityAvailable =parkingLotSystem.unPark(vehicle);
+            Assert.assertTrue(isCapacityAvailable);
+        } catch (Exception e) {
+        }
+    }
+    @Test
+    public void givenIfSameVehicle_RequestedToParkAgain_ShouldReturnTrue() throws ParkingLotException {
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(vehicle);
+        } catch (Exception e) {
+            Assert.assertEquals("vehicle already parked",e.getMessage());
 
+        }
+    }
 }
