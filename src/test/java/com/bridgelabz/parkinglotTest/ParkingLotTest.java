@@ -50,6 +50,7 @@ public class ParkingLotTest {
             Assert.assertTrue(isUnParked);
         } catch (ParkingLotException e) { }
 
+
     }
     @Test
     public void givenWhenParkingLotIsFull_ShouldInformOwner () {
