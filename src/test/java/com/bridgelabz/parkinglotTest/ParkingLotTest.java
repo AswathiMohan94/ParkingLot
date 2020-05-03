@@ -14,12 +14,14 @@ public class ParkingLotTest {
     ParkingLotSystem parkingLotSystem = null;
     Object vehicle = null;
     Object vehicle2 = null;
+    Object vehicle3 = null;
 
     @Before
     public void setUp() {
         parkingLotSystem = new ParkingLotSystem(2);
         vehicle = new Object();
         vehicle2 = new Object();
+        vehicle3 = new Object();
     }
     @Test
     public void givenAVehicle_WhenParked_ShouldReturnTrue(){
@@ -113,4 +115,18 @@ public class ParkingLotTest {
             Assert.assertFalse(checkNull);
         }
     }
+    @Test
+    public void givenWhenParkingLotIsFull_OwnerShouldReturnFalse() throws ParkingLotException {
+            ParkingLotOwner owner = new ParkingLotOwner();
+            parkingLotSystem.registerParkingLotObserver(owner);
+        try {
+            parkingLotSystem.park(vehicle);
+            parkingLotSystem.park(vehicle2);
+            parkingLotSystem.park(vehicle3);
+        } catch (Exception e) {
+            boolean isCapacityFull = vehicle.equals(vehicle2);
+            Assert.assertFalse(isCapacityFull);
+        }
+    }
+
 }
