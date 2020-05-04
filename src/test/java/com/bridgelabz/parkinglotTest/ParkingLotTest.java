@@ -225,7 +225,18 @@ public class ParkingLotTest {
         } catch (Exception e) {
             boolean find= attendant.findMyVehicle(vehicle);
             Assert.assertTrue(find);
-
+        }
+    }
+    @Test
+    public void givenAVehicleParkedNeedToBeFound_AndDriverSearchingUnParkedVehicle_ShouldReturnFalse() throws ParkingLotException {
+        ParkingAttendant attendant = new ParkingAttendant(2);
+        parkingLotSystem.registerParkingLotObserver(attendant);
+        try {
+            parkingLotSystem.isSlotAvailable(vehicle);
+            parkingLotSystem.isSlotAvailable(vehicle3);
+            boolean find= attendant.findMyVehicle(vehicle2);
+        } catch (Exception e) {
+            Assert.assertEquals("sorry vehicle not found",e.getMessage());
         }
     }
 }
