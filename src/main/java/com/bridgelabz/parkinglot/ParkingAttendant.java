@@ -26,14 +26,14 @@ public class ParkingAttendant implements ParkingLotObserver {
     @Override
     public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
         // if (a.values().stream().filter(value -> value.contains(1)).count() > 0) {
-      //  if(slots.size() == (occupiedSlots-1) )
-       //     throw new ParkingLotException("no slot available");
+        if(slots.size() == (occupiedSlots-1) )
+            throw new ParkingLotException("no slot available");
         if(vehicle!= null && occupiedSlots< currentCapacity) {
             this.slots.add(vehicle);
             occupiedSlots++;
-            return this.capacityIsAvailable;
+            return true;
         }
-        return  capacityIsFull;
+        return  false;
     }
 
 

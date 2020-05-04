@@ -205,8 +205,8 @@ public class ParkingLotTest {
     @Test
     public void givenIfVehicleNeedToBeParked_ThenAttendantShouldGiveSlot_NoSlotShouldReturnFalse() throws ParkingLotException {
         ParkingAttendant attendant = new ParkingAttendant(2);
-        try{
         parkingLotSystem.registerParkingLotObserver(attendant);
+        try{
         boolean slotReceived = parkingLotSystem.isSlotAvailable(vehicle);
         boolean slotReceived3 = parkingLotSystem.isSlotAvailable(vehicle3);
         boolean slotReceived2 = parkingLotSystem.isSlotAvailable(vehicle2);
