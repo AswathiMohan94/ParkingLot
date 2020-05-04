@@ -4,16 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ParkingAttendant implements ParkingLotObserver {
-    private  int currentCapacity;
-    private int occupiedSlots=0;
+    private int currentCapacity;
+    private int occupiedSlots = 0;
     private List slots;
     private boolean capacityIsAvailable;
     boolean capacityIsFull;
 
     public ParkingAttendant(int capacity) {
         this.slots = new ArrayList();
-        this.currentCapacity=capacity;
+        this.currentCapacity = capacity;
     }
+
     @Override
     public boolean capacityIsFull() {
         return false;
@@ -23,18 +24,26 @@ public class ParkingAttendant implements ParkingLotObserver {
     public boolean capacityIsAvailable() {
         return true;
     }
+
     @Override
     public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
-        // if (a.values().stream().filter(value -> value.contains(1)).count() > 0) {
-        if(slots.size() == (occupiedSlots-1) )
+        if (slots.size() == (occupiedSlots - 1))
             throw new ParkingLotException("no slot available");
-        if(vehicle!= null && occupiedSlots< currentCapacity) {
+        if (vehicle != null && occupiedSlots < currentCapacity) {
             this.slots.add(vehicle);
             occupiedSlots++;
             return true;
         }
-        return  false;
+        return false;
     }
+
+    public boolean findMyVehicle(Object vehicle) throws ParkingLotException {
+        if (slots.contains(vehicle))
+            return true;
+        throw new ParkingLotException("sorry vehicle not found");
+    }
+}
+
 
 
 
@@ -61,4 +70,4 @@ public class ParkingAttendant implements ParkingLotObserver {
         return capacityIsAvailable;
     }
 */
-}
+

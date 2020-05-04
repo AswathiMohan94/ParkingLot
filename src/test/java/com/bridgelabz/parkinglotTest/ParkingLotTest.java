@@ -206,12 +206,26 @@ public class ParkingLotTest {
     public void givenIfVehicleNeedToBeParked_ThenAttendantShouldGiveSlot_NoSlotShouldReturnFalse() throws ParkingLotException {
         ParkingAttendant attendant = new ParkingAttendant(2);
         parkingLotSystem.registerParkingLotObserver(attendant);
-        try{
-        boolean slotReceived = parkingLotSystem.isSlotAvailable(vehicle);
-        boolean slotReceived3 = parkingLotSystem.isSlotAvailable(vehicle3);
-        boolean slotReceived2 = parkingLotSystem.isSlotAvailable(vehicle2);
+        try {
+            parkingLotSystem.isSlotAvailable(vehicle);
+            parkingLotSystem.isSlotAvailable(vehicle3);
+            parkingLotSystem.isSlotAvailable(vehicle2);
         } catch (Exception e) {
             Assert.assertEquals("Sorry vacant slots", e.getMessage());
+        }
+    }
+
+    @Test
+    public void givenAVehicleParkedNeedToBeFound_SoThatDriverCanUnPark() throws ParkingLotException {
+        ParkingAttendant attendant = new ParkingAttendant(2);
+        parkingLotSystem.registerParkingLotObserver(attendant);
+        try {
+            parkingLotSystem.isSlotAvailable(vehicle);
+            parkingLotSystem.isSlotAvailable(vehicle3);
+        } catch (Exception e) {
+            boolean find= attendant.findMyVehicle(vehicle);
+            Assert.assertTrue(find);
+
         }
     }
 }
