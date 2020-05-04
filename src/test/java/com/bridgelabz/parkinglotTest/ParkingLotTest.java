@@ -12,6 +12,7 @@ import java.util.Map;
 public class ParkingLotTest {
     ParkingLotSystem parkingLotSystem = null;
     AirportSecurity airportSecurity = null;
+    ParkingAttendant parkingAttendant = null;
     Object vehicle = null;
     Object vehicle2 = null;
     Object vehicle3 = null;
@@ -21,6 +22,7 @@ public class ParkingLotTest {
     @Before
     public void setUp() {
         parkingLotSystem = new ParkingLotSystem(2);
+        parkingAttendant = new ParkingAttendant(2);
         airportSecurity = new AirportSecurity();
         vehicle = new Object();
         vehicle2 = new Object();
@@ -201,15 +203,15 @@ public class ParkingLotTest {
 
     //<<<<<<<<<<<<<<<<<----------------UC6 ----------------->>>>>>>>>>>>>>>>>>>>
     @Test
-    public void givenIfVehicleNeedToBeParked_ThenAttendantShouldGiveSlot() throws ParkingLotException {
-        try {
-            ParkingAttendant attendant = new ParkingAttendant();
-            parkingLotSystem.park(vehicle);
-            boolean slotReceived = attendant.AllotVacantSlot(vehicle);
-            Assert.assertTrue(slotReceived);
+    public void givenIfVehicleNeedToBeParked_ThenAttendantShouldGiveSlot_NoSlotShouldReturnFalse() throws ParkingLotException {
+        ParkingAttendant attendant = new ParkingAttendant(2);
+        try{
+        parkingLotSystem.registerParkingLotObserver(attendant);
+        boolean slotReceived = parkingLotSystem.isSlotAvailable(vehicle);
+        boolean slotReceived3 = parkingLotSystem.isSlotAvailable(vehicle3);
+        boolean slotReceived2 = parkingLotSystem.isSlotAvailable(vehicle2);
         } catch (Exception e) {
+            Assert.assertEquals("Sorry vacant slots", e.getMessage());
         }
-
     }
-
 }

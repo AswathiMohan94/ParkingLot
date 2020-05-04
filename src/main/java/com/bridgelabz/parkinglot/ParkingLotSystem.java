@@ -7,6 +7,7 @@ public class ParkingLotSystem {
     private int actualCapacity;
     private List vehicles;
     private List<ParkingLotObserver> observers;
+    private boolean vacancy;
 
     public ParkingLotSystem(int capacity) {
         this.observers = new ArrayList<>();
@@ -26,28 +27,32 @@ public class ParkingLotSystem {
     }
 
     public void park(Object vehicle) throws ParkingLotException {
-        if (isVehicleParked(vehicle))
-            throw new ParkingLotException("vehicle already parked");
-        if (this.vehicles.size() == this.actualCapacity) {
-            for (ParkingLotObserver observer : observers) {
-                observer.capacityIsFull();
-            }
-            throw new ParkingLotException("parking lot is full");
-        }
-        ParkingAttendant attendant =new ParkingAttendant();
-        if(attendant.AllotVacantSlot(vehicle))
-            this.vehicles.add(vehicle);
+                if (isVehicleParked(vehicle))
+                    throw new ParkingLotException("vehicle already parked");
+                if (this.vehicles.size() == this.actualCapacity) {
+                    for (ParkingLotObserver observer : observers) {
+                        observer.capacityIsFull();
+                    }
+                    throw new ParkingLotException("parking lot is full");
+                }
+                this.vehicles.add(vehicle);
+
+
     }
-/*
-    public boolean slotAvailable(Object vehicle) {
-        if (this.vehicles.size() <= this.actualCapacity) {
+
+    public boolean isSlotAvailable(Object vehicle) throws ParkingLotException {
+        //if (this.vehicles.size() <= this.actualCapacity) {
             for (ParkingLotObserver observer : observers) {
-                observer.isSlotVacant();
-                return true;
+                vacancy=observer.AllotVacantSlot(vehicle);
+                if(vacancy == true){
+                    park(vehicle);
+                    return true;
+                }
             }
-        }
-        return false;
-    }*/
+       // return false;
+        throw new ParkingLotException("Sorry vacant slots");
+
+    }
 
     public boolean isVehicleParked(Object vehicle) throws ParkingLotException {
         if(vehicle == null)

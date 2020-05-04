@@ -1,9 +1,9 @@
 package com.bridgelabz.parkinglot;
 
 public interface ParkingLotObserver {
-    public void capacityIsFull();
-    public void capacityIsAvailable();
-    public boolean isSlotVacant();
+    public boolean capacityIsFull();
+    public boolean capacityIsAvailable();
+    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException;
 
 
 }

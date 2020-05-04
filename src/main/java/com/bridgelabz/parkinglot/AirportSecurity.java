@@ -6,19 +6,21 @@ public class AirportSecurity implements ParkingLotObserver{
 
 
     @Override
-    public void capacityIsFull() {
+    public boolean capacityIsFull() {
         isFullCapacity = true;
-    }
-
-    @Override
-    public void capacityIsAvailable() {
-    }
-
-    @Override
-    public boolean isSlotVacant() {
-
         return false;
     }
+
+    @Override
+    public boolean capacityIsAvailable() {
+        return false;
+    }
+
+    @Override
+    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
+        return false;
+    }
+
 
     public boolean isCapacityFull() {
         return true;

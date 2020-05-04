@@ -1,22 +1,45 @@
 package com.bridgelabz.parkinglot;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class ParkingAttendant {
-    ArrayList slots = new ArrayList();
-    int slotCapacity = 2;
-    int currentCapacity = 0;
+public class ParkingAttendant implements ParkingLotObserver {
+    private  int currentCapacity;
+    private int occupiedSlots=0;
+    private List slots;
+    private boolean capacityIsAvailable;
+    boolean capacityIsFull;
 
-    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
-       // if (a.values().stream().filter(value -> value.contains(1)).count() > 0) {
-        if(slotCapacity == currentCapacity )
-            throw new ParkingLotException("no slot available");
-        if(vehicle!= null && slotCapacity != currentCapacity) {
-            this.slots.add(vehicle);
-            currentCapacity++;
-            return true;
-        }return  false;
+    public ParkingAttendant(int capacity) {
+        this.slots = new ArrayList();
+        this.currentCapacity=capacity;
     }
+    @Override
+    public boolean capacityIsFull() {
+        return false;
+    }
+
+    @Override
+    public boolean capacityIsAvailable() {
+        return true;
+    }
+    @Override
+    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
+        // if (a.values().stream().filter(value -> value.contains(1)).count() > 0) {
+      //  if(slots.size() == (occupiedSlots-1) )
+       //     throw new ParkingLotException("no slot available");
+        if(vehicle!= null && occupiedSlots< currentCapacity) {
+            this.slots.add(vehicle);
+            occupiedSlots++;
+            return this.capacityIsAvailable;
+        }
+        return  capacityIsFull;
+    }
+
+
+
+
+
 
 
 

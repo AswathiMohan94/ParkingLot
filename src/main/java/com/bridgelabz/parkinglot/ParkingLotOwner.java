@@ -3,20 +3,22 @@ package com.bridgelabz.parkinglot;
 public class ParkingLotOwner implements ParkingLotObserver {
     private boolean isFullCapacity;
     @Override
-    public void capacityIsFull() {
+    public boolean capacityIsFull() {
         isFullCapacity = true;
+        return false;
     }
 
     @Override
-    public void capacityIsAvailable() {
-
-    }
-
-    @Override
-    public boolean isSlotVacant() {
+    public boolean capacityIsAvailable() {
 
         return false;
     }
+
+    @Override
+    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
+        return false;
+    }
+
 
     public boolean isCapacityFull() {
         //return true;
