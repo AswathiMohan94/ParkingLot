@@ -34,10 +34,11 @@ public class ParkingLotSystem {
             }
             throw new ParkingLotException("parking lot is full");
         }
-        if(slotAvailable(vehicle))
+        ParkingAttendant attendant =new ParkingAttendant();
+        if(attendant.AllotVacantSlot(vehicle))
             this.vehicles.add(vehicle);
     }
-
+/*
     public boolean slotAvailable(Object vehicle) {
         if (this.vehicles.size() <= this.actualCapacity) {
             for (ParkingLotObserver observer : observers) {
@@ -46,7 +47,7 @@ public class ParkingLotSystem {
             }
         }
         return false;
-    }
+    }*/
 
     public boolean isVehicleParked(Object vehicle) throws ParkingLotException {
         if(vehicle == null)

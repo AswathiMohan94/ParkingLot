@@ -5,6 +5,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class ParkingLotTest {
@@ -13,6 +15,8 @@ public class ParkingLotTest {
     Object vehicle = null;
     Object vehicle2 = null;
     Object vehicle3 = null;
+    Map Vehicle = new HashMap<>();
+
 
     @Before
     public void setUp() {
@@ -26,8 +30,8 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_WhenParked_ShouldReturnTrue() {
         try {
-            ParkingAttendant attendant = new ParkingAttendant();
-            parkingLotSystem.registerParkingLotObserver(attendant);
+            ParkingLotOwner owner = new ParkingLotOwner();
+            parkingLotSystem.registerParkingLotObserver(owner);
             parkingLotSystem.park(vehicle);
             boolean isParked = parkingLotSystem.isVehicleParked(vehicle);
             Assert.assertTrue(isParked);
@@ -74,8 +78,8 @@ public class ParkingLotTest {
 
     @Test
     public void givenCapacityIs2_ShouldBeAbleToPark2Vehicles() {
-        ParkingAttendant attendant = new ParkingAttendant();
-        parkingLotSystem.registerParkingLotObserver(attendant);
+        ParkingLotOwner owner = new ParkingLotOwner();
+        parkingLotSystem.registerParkingLotObserver(owner);
         parkingLotSystem.setCapacity(2);
         try {
             parkingLotSystem.park(vehicle);
@@ -186,8 +190,8 @@ public class ParkingLotTest {
     @Test
     public void givenIfSameVehicle_RequestedToParkAgain_ShouldReturnTrue() throws ParkingLotException {
         try {
-            ParkingAttendant attendant = new ParkingAttendant();
-            parkingLotSystem.registerParkingLotObserver(attendant);
+            ParkingLotOwner owner = new ParkingLotOwner();
+            parkingLotSystem.registerParkingLotObserver(owner);
             parkingLotSystem.park(vehicle);
             parkingLotSystem.park(vehicle);
         } catch (Exception e) {
@@ -197,13 +201,12 @@ public class ParkingLotTest {
 
     //<<<<<<<<<<<<<<<<<----------------UC6 ----------------->>>>>>>>>>>>>>>>>>>>
     @Test
-    public void givenIfVehicleNeedToBeParked_ShouldTellAttendantToPark() throws ParkingLotException {
+    public void givenIfVehicleNeedToBeParked_ThenAttendantShouldGiveSlot() throws ParkingLotException {
         try {
             ParkingAttendant attendant = new ParkingAttendant();
-            parkingLotSystem.registerParkingLotObserver(attendant);
             parkingLotSystem.park(vehicle);
-            boolean slots = attendant.isSlotVacant();
-            Assert.assertTrue(slots);
+            boolean slotReceived = attendant.AllotVacantSlot(vehicle);
+            Assert.assertTrue(slotReceived);
         } catch (Exception e) {
         }
 
