@@ -39,11 +39,7 @@ public class ParkingLotSystem {
 
 
     }
-
-
-
     public boolean isSlotAvailable(Object vehicle) throws ParkingLotException {
-        //if (this.vehicles.size() <= this.actualCapacity) {
             for (ParkingLotObserver observer : observers) {
                 vacancy=  observer.AllotVacantSlot(vehicle);
                 if(vacancy == true){
@@ -76,5 +72,6 @@ public class ParkingLotSystem {
         }
         return true;
     }
+
 
 }

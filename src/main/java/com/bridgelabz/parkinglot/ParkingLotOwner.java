@@ -19,6 +19,11 @@ public class ParkingLotOwner implements ParkingLotObserver {
         return false;
     }
 
+    @Override
+    public boolean findMyVehicle(Object vehicle) throws ParkingLotException {
+        return false;
+    }
+
 
     public boolean isCapacityFull() {
         //return true;

@@ -4,9 +4,9 @@ public interface ParkingLotObserver {
     public boolean capacityIsFull();
     public boolean capacityIsAvailable();
     public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException;
-    default boolean findMyVehicle(Object vehicle) throws ParkingLotException {
-            return true;
-    }
+    public boolean findMyVehicle(Object vehicle) throws ParkingLotException ;
+
+
     }
 
 
