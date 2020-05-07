@@ -17,7 +17,7 @@ public class AirportSecurity implements ParkingLotObserver{
     }
 
     @Override
-    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
+    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException{
         return false;
     }
 

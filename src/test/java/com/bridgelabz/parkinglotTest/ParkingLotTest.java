@@ -34,16 +34,12 @@ public class ParkingLotTest {
     }
 
     @Test
-    public void givenAVehicle_WhenParked_ShouldReturnTrue() {
-        try {
+    public void givenAVehicle_WhenParked_ShouldReturnTrue() throws ParkingLotException {
             ParkingLotOwner owner = new ParkingLotOwner();
             parkingLotSystem.registerParkingLotObserver(owner);
-            parkingLotSystem.park(vehicle);
-            boolean isParked = parkingLotSystem.isVehicleParked(vehicle);
+            parkingLotSystem.park(vehicle2);
+            boolean isParked = parkingLotSystem.isVehicleParked(vehicle2);
             Assert.assertTrue(isParked);
-        } catch (ParkingLotException e) {
-            e.printStackTrace();
-        }
 
     }
 
@@ -55,7 +51,6 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle2);
         } catch (ParkingLotException e) {
             Assert.assertEquals("vehicle already parked", e.getMessage());
-            e.printStackTrace();
         }
     }
 
@@ -217,7 +212,7 @@ public class ParkingLotTest {
             parkingLotSystem.isSlotAvailable(vehicle3);
             parkingLotSystem.isSlotAvailable(vehicle2);
         } catch (Exception e) {
-            Assert.assertEquals("Sorry vacant slots", e.getMessage());
+            Assert.assertEquals("Sorry no vacant slots", e.getMessage());
         }
     }
 

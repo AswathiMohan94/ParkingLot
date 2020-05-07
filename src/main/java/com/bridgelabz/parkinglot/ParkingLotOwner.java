@@ -15,7 +15,7 @@ public class ParkingLotOwner implements ParkingLotObserver {
     }
 
     @Override
-    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
+    public boolean AllotVacantSlot(Object vehicle)  {
         return false;
     }
 
