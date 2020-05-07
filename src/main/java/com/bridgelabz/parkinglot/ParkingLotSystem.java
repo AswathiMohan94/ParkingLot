@@ -35,18 +35,33 @@ public class ParkingLotSystem {
                     }
                     throw new ParkingLotException("parking lot is full");
                 }
+               /* if (this.vehicles.size() == this.actualCapacity) {
+                    for (ParkingLotObserver observer : observers) {
+                        observer.capacityIsFull();
+                    }
+
+                    throw new ParkingLotException("parking lot is full");
+                }*/
                 this.vehicles.add(vehicle);
 
 
     }
     public boolean isSlotAvailable(Object vehicle) throws ParkingLotException {
-            for (ParkingLotObserver observer : observers) {
+        for (ParkingLotObserver observer : observers) {
+            vacancy=observer.AllotVacantSlot(vehicle);
+
+            if(vacancy == true){
+                park(vehicle);
+                return true;
+            }
+        }
+          /*  for (ParkingLotObserver observer : observers) {
                 vacancy=  observer.AllotVacantSlot(vehicle);
                 if(vacancy == true){
                     park(vehicle);
                     return true;
                 }
-            }
+            }*/
        // return false;
         throw new ParkingLotException("Sorry vacant slots");
 
@@ -63,14 +78,17 @@ public class ParkingLotSystem {
 
     public boolean unPark(Object vehicle) {
         if (vehicle == null) return false;
-        if (this.vehicles.contains(vehicle)) {
+        vehicles.stream().filter(variable->vehicles.contains(vehicle))
+                .filter(variable->vehicles.remove(vehicle));
+        observers.forEach(observer->observer.capacityIsAvailable());
+                return true;
+     /*   if (this.vehicles.contains(vehicle)) {
             this.vehicles.remove(vehicle);
             for (ParkingLotObserver observer : observers) {
                 observer.capacityIsAvailable();
                 return true;
-            }
-        }
-        return true;
+            }*/
+
     }
 
 
