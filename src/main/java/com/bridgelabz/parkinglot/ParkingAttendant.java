@@ -35,20 +35,19 @@ public class ParkingAttendant implements ParkingLotObserver {
     }*/
 
     @Override
-    public boolean capacityIsFull() {
-        return capacityIsFull = false;
-    }
+    public boolean capacityIsFull() throws ParkingLotException {
+        if(AllotVacantSlot(vehicle)==true);
+            return capacityIsAvailable;
 
+    }
     @Override
     public boolean capacityIsAvailable() {
-        return capacityIsAvailable = true;
-    }
+                return this.capacityIsAvailable=true; }
 
-    @Override
-    public boolean AllotVacantSlot(Object vehicle)  {
-        if (slots.size() == (occupiedSlots - 1))
-            //throw new ParkingLotException("no slot available");
-            return false;
+
+    public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
+       // if (slots.size() == (occupiedSlots - 1))
+         //   throw new ParkingLotException("no slot available");
         if (vehicle != null && occupiedSlots < currentCapacity) {
             this.slots.add(vehicle);
             occupiedSlots++;
@@ -58,13 +57,14 @@ public class ParkingAttendant implements ParkingLotObserver {
     }
 
     public boolean findMyVehicle(Object vehicle) throws ParkingLotException {
-        if (slots.contains(vehicle))
+        slots.stream().filter(variable->slots.contains(vehicle));
+             return true;
+      /*  if (slots.contains(vehicle))
             return true;
-        throw new ParkingLotException("sorry vehicle not found");
+        throw new ParkingLotException("sorry vehicle not found");*/
     }
 
     public int giveSlotLocation(Vehicle vehicle, int lot) throws ParkingLotException {
-        // ArrayList l = (ArrayList) Stream.iterate(0, i -> i + 1).limit(5).map(i -> Integer.toString(i)).collect(Collectors.toList());
         this.vehicle = vehicle;
         this.lot = lot;
         if (vehicle != null && lot == 1) {
@@ -83,7 +83,7 @@ public class ParkingAttendant implements ParkingLotObserver {
             numOfVehiclesSlot3++;
             return location;
         }
-        throw new ParkingLotException("vehicle no found");
+        throw new ParkingLotException("vehicle not found");
 
     }
 
@@ -92,7 +92,7 @@ public class ParkingAttendant implements ParkingLotObserver {
         return nearestParkingLot;
     }
 */
-    public Integer findNearestSlot(Vehicle vehicle) {
+  /*  public Integer findNearestSlot(Vehicle vehicle) {
         int one;
         int two;
         int three;
@@ -103,7 +103,7 @@ public class ParkingAttendant implements ParkingLotObserver {
                 collect(toMap(e -> e.getKey(), e -> e.getValue(), (e1, e2) -> e2, LinkedHashMap::new));
         return nearestLot.get(0);
 
-    }
+    }*/
 }
 
 

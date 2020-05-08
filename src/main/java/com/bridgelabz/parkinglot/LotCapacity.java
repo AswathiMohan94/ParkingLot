@@ -1,7 +1,7 @@
 package com.bridgelabz.parkinglot;
 
 import java.util.ArrayList;
-
+/*
 public class LotCapacity {
 
 
@@ -32,12 +32,4 @@ public class LotCapacity {
         ArrayList lot3 = new ArrayList<>(capacity3);
         ArrayList<Integer> arrayList = new ArrayList<>(100)*/
 
-
-    }
-
-
-
-
-
-}
 

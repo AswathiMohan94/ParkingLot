@@ -1,4 +1,4 @@
-package com.bridgelabz.parkinglot;
+/*package com.bridgelabz.parkinglot;
 
 public class VehicleLocation {
     private  Object slotForParking;
@@ -8,4 +8,4 @@ public class VehicleLocation {
         slotForParking=null;
        lotForParking=null;
     }
-}
+}*/

@@ -29,8 +29,14 @@ public class ParkingLotSystem {
         if (isVehicleParked(vehicle))
             throw new ParkingLotException("vehicle already parked");
         if (this.vehicles.size() == this.actualCapacity) {
-            observers.forEach(observer -> observer.capacityIsFull());
-            throw new ParkingLotException("parking lot is full");
+            observers.forEach(observer -> {
+                try {
+                    observer.capacityIsFull();
+                } catch (ParkingLotException e) {
+
+                }
+            });
+        throw new ParkingLotException("parking lotCapacity is full");
         }
         this.vehicles.add(vehicle);
     }
@@ -46,33 +52,19 @@ public class ParkingLotSystem {
 
 
     public boolean isSlotAvailable(Object vehicle) throws ParkingLotException {
-        try {
-            observers.stream().forEach(observer -> {
-                try {
-                    observer.AllotVacantSlot(vehicle);
-                } catch (ParkingLotException e) {
-                    e.printStackTrace();
-                }
-            });
-            if (vacancy == true) {
+        for (ParkingLotObserver observer : observers) {
+            vacancy=  observer.AllotVacantSlot(vehicle);
+            if(vacancy == true){
                 park(vehicle);
                 return true;
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-        return false;
-    }
+        throw new ParkingLotException("Sorry no vacant slots");
+
 
         //throw new ParkingLotException("Sorry no vacant slots");
 
-            /*    for (ParkingLotObserver observer : observers) {
-                vacancy=  observer.AllotVacantSlot(vehicle);
-                if(vacancy == true){
-                    park(vehicle);
-                    return true;}
-
-       /* observers.stream().forEach(observer -> {
+        /* observers.stream().forEach(observer -> {
             if (observer.AllotVacantSlot(vehicle) == true) {
                 try {
                     park(vehicle);
@@ -94,27 +86,21 @@ public class ParkingLotSystem {
             }
         throw new ParkingLotException("Sorry no vacant slots");
 
-         /*
-            throw new ParkingLotException("Sorry vacant slots");
-        } catch (ParkingLotException e) {
-            e.printStackTrace();
         }*/
+    }
+    public boolean isVehicleParked (Object vehicle) throws ParkingLotException {
+        if (vehicle == null)
+            throw new ParkingLotException("vehicle already parked");
+        if (this.vehicles.contains(vehicle))
+            return true;
+        return false;
+    }
 
-
-                public boolean isVehicleParked (Object vehicle) throws ParkingLotException {
-                if (vehicle == null)
-                    throw new ParkingLotException("vehicle already parked");
-
-                if (this.vehicles.contains(vehicle))
-                    return true;
-                return false;
-            }
-
-        public boolean unPark (Object vehicle){
-            if (vehicle == null) return false;
+    public boolean unPark (Object vehicle){
+        if (vehicle == null) return false;
             vehicles.stream().filter(variable -> vehicles.contains(vehicle))
                     .filter(variable -> vehicles.remove(vehicle));
-            observers.forEach(observer -> observer.capacityIsAvailable());
+              observers.forEach(observer -> observer.capacityIsAvailable());
             return true;
 
         /*if (vehicle == null) return false;
