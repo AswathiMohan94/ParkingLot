@@ -12,11 +12,16 @@ import static com.bridgelabz.parkinglot.Vehicle.VehicleType.TOYOTA;
 
 
 public class ParkingLotTest {
+    Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA,"Tom");
+    Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA,"Jerry");
+    Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA,"Jack");
+    Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA,"Jill");
+    Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA,"Lilly");
+
 
     @Test
     public void givenAVehicle_WhenParked_ShouldReturnTrue() throws ParkingLotException {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
         ParkingLotOwner owner = new ParkingLotOwner();
         parkingLotSystem.registerParkingLotObserver(owner);
         parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
@@ -28,8 +33,6 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicle_WhenAlreadyParked_ShouldReturnFalse() {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
         try {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
@@ -42,7 +45,6 @@ public class ParkingLotTest {
     public void givenAVehicle_WhenUnParked_ShouldReturnTrue() {
         try {
             ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
-            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             Object isUnParked = parkingLotSystem.unPark(vehicle1);
             Assert.assertEquals(null, isUnParked);
@@ -71,8 +73,6 @@ public class ParkingLotTest {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
         ParkingLotOwner owner = new ParkingLotOwner();
         parkingLotSystem.registerParkingLotObserver(owner);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
         try {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
@@ -91,9 +91,6 @@ public class ParkingLotTest {
         parkingLotSystem.registerParkingLotObserver(owner);
 
         parkingLotSystem.registerParkingLotObserver(airportSecurity);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
-
         try {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
@@ -105,8 +102,6 @@ public class ParkingLotTest {
     @Test
     public void givenWhenParkingLotSpaceIsAvailableAfterFull_ShouldReturnTrue() throws ParkingLotException {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
         ParkingLotOwner owner = new ParkingLotOwner();
         parkingLotSystem.registerParkingLotObserver(owner);
         try {
@@ -137,10 +132,6 @@ public class ParkingLotTest {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
         ParkingLotOwner owner = new ParkingLotOwner();
         parkingLotSystem.registerParkingLotObserver(owner);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
-        Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
-
         try {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
@@ -154,9 +145,6 @@ public class ParkingLotTest {
     public void givenWhenParkingLotIsFull_AirportSecurityShouldReturnFalse() throws ParkingLotException {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
         AirportSecurity security = new AirportSecurity();
-        com.bridgelabz.parkinglot.Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        com.bridgelabz.parkinglot.Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
-        com.bridgelabz.parkinglot.Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
         parkingLotSystem.registerParkingLotObserver(security);
         try {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
@@ -172,8 +160,6 @@ public class ParkingLotTest {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
         ParkingLotOwner owner = new ParkingLotOwner();
         parkingLotSystem.registerParkingLotObserver(owner);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
         try {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
@@ -188,8 +174,6 @@ public class ParkingLotTest {
         AirportSecurity security = new AirportSecurity();
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
         parkingLotSystem.registerParkingLotObserver(security);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
         try {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
@@ -202,8 +186,6 @@ public class ParkingLotTest {
     @Test
     public void givenIfSameVehicle_RequestedToParkAgain_ShouldReturnTrue() throws ParkingLotException {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
         try {
             ParkingLotOwner owner = new ParkingLotOwner();
             parkingLotSystem.registerParkingLotObserver(owner);
@@ -218,9 +200,6 @@ public class ParkingLotTest {
     @Test
     public void givenIfVehicleNeedToBeParked_ThenAttendantShouldGiveSlot_NoSlotShouldReturnFalse() throws ParkingLotException {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
-        Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
         ParkingAttendant attendant = new ParkingAttendant();
         parkingLotSystem.registerParkingLotObserver(attendant);
         try {
@@ -235,8 +214,6 @@ public class ParkingLotTest {
     @Test
     public void givenAVehicleParkedNeedToBeFound_SoThatDriverCanUnPark() throws ParkingLotException {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
-        Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-        Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
         ParkingAttendant attendant = new ParkingAttendant();
         parkingLotSystem.registerParkingLotObserver(attendant);
         try {
@@ -285,11 +262,6 @@ public class ParkingLotTest {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 4);
         //parkingLotSystem.registerParkingLotObserver(attendant);
         try {
-            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-            Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
-            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
-            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA);
-            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
@@ -316,17 +288,11 @@ public class ParkingLotTest {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 4);
 
         try {
-            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-            Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
-            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
-            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA);
-            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle5, new HandicapParkingStrategy());
-
 
             int Location1 = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
             int Location2 = parkingLotSystem.findMyVehicle(vehicle2,WHITE);
@@ -347,11 +313,6 @@ public class ParkingLotTest {
     public void givenMultipleParkingLots_LargeVehicleShouldBeParkedInTheSlotWithHighestCapacity_ShouldParkAtLast() {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
         try {
-            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-            Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
-            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
-            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA);
-            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
@@ -376,11 +337,6 @@ public class ParkingLotTest {
     public void givenMultipleParkingLotsWithCars_IfWhiteCarFound_ShouldReturnVehicle() {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
         try {
-            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
-            Vehicle vehicle2 = new Vehicle("KL33A1002", RED, TOYOTA);
-            Vehicle vehicle3 = new Vehicle("KL33A1003", VIOLET, TOYOTA);
-            Vehicle vehicle4 = new Vehicle("KL33A1004", RED, TOYOTA);
-            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
