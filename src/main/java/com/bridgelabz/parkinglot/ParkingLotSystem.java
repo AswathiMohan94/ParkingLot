@@ -63,7 +63,7 @@ public class ParkingLotSystem {
         return true;
     }
 
-    public Integer findMyVehicle(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
+    public Integer findMyVehicle(Vehicle vehicle, Vehicle.VehicleType vehicleType, Vehicle.VehicleColor colour) throws ParkingLotException {
         VehicleLocation location = new VehicleLocation();
         Integer noOfSlots = parkingLots.stream().findFirst().get().listOfOccupiedSlots.size();
         for (Integer slotNumber = 0; slotNumber < noOfSlots; slotNumber++)
@@ -76,12 +76,18 @@ public class ParkingLotSystem {
                 }
         throw new ParkingLotException("No Such Vehicle Available");
     }
-    public Integer findCarsWithWhiteColor(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
-        return findMyVehicle(vehicle, Vehicle.VehicleColor.WHITE);
+    public Integer findCarsByColor(Vehicle vehicle,Vehicle.VehicleType vehicleType,Vehicle.VehicleColor colour) throws ParkingLotException {
+        if(colour==Vehicle.VehicleColor.WHITE)
+            return findMyVehicle(vehicle, Vehicle.VehicleType.TOYOTA,Vehicle.VehicleColor.WHITE);
+        if(colour==Vehicle.VehicleColor.BLUE)
+            return findMyVehicle(vehicle, Vehicle.VehicleType.TOYOTA,Vehicle.VehicleColor.WHITE);
+        return null;
     }
-    public int findCarsWithBlueColor(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
-        return findMyVehicle(vehicle, Vehicle.VehicleColor.BLUE);
+    // public int findCarsWithBlueColor(Vehicle vehicle, Vehicle.VehicleType vehicleType,Vehicle.VehicleColor colour) throws ParkingLotException {
+      //  return findMyVehicle(vehicle,Vehicle.VehicleType.TOYOTA, Vehicle.VehicleColor.BLUE);
 
+    public int findBMW(Vehicle vehicle, Vehicle.VehicleType vehicleType,Vehicle.VehicleColor colour) throws ParkingLotException {
+        return findMyVehicle(vehicle,Vehicle.VehicleType.BMW,Vehicle.VehicleColor.BLUE);
     }
 
     public List findEmptySlots() {
