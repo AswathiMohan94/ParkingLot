@@ -1,4 +1,4 @@
-package com.bridgelaz.parkinglotTest;
+package com.bridgelabz.parkinglotTest;
 
 import com.bridgelabz.parkinglot.*;
 import com.bridgelabz.parkinglot.ParkingAttendant;
@@ -242,9 +242,10 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
         } catch (Exception e) {
             int find = parkingLotSystem.findMyVehicle(vehicle1);
-            Assert.assertEquals(2,find);
+            Assert.assertEquals(2, find);
         }
     }
+
    /* @Test
     public void givenDriverTryingToFindAnAlreadyUnParkedVehicle_ShouldReturnFalse() throws ParkingLotException {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
@@ -277,26 +278,26 @@ public class ParkingLotTest {
         }
     }*/
 
-  @Test
+    @Test
     public void givenAVehicleShouldBeAllottedLot_InEvenMannerByAttendant() {
-      ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 4);
-      //parkingLotSystem.registerParkingLotObserver(attendant);
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 4);
+        //parkingLotSystem.registerParkingLotObserver(attendant);
         try {
-            Vehicle vehicle1 = new Vehicle("KL33A1001",WHITE,TOYOTA);
-            Vehicle vehicle2 = new Vehicle("KL33A1002",WHITE,TOYOTA);
-            Vehicle vehicle3 = new Vehicle("KL33A1003",WHITE,TOYOTA);
-            Vehicle vehicle4 = new Vehicle("KL33A1004",WHITE,TOYOTA);
-            Vehicle vehicle5 = new Vehicle("KL33A1005",WHITE,TOYOTA);
+            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
+            Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
+            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
+            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA);
+            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle5, new NormalParkingStrategy());
 
-           int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
+            int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
             int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
-            int  Location3 = parkingLotSystem.findMyVehicle(vehicle3);
-            int  Location4 = parkingLotSystem.findMyVehicle(vehicle4);
+            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
+            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
             int Location5 = parkingLotSystem.findMyVehicle(vehicle5);
 
             Assert.assertEquals(0, Location1);
@@ -309,16 +310,16 @@ public class ParkingLotTest {
         }
     }
 
-   @Test
-    public void givenVehicleOfHandicappedDriver_ShouldParkInTheNearestLot(){
-        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3,4);
+    @Test
+    public void givenVehicleOfHandicappedDriver_ShouldParkInTheNearestLot() {
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 4);
 
-        try{
-            Vehicle vehicle1 = new Vehicle("KL33A1001",WHITE,TOYOTA);
-            Vehicle vehicle2 = new Vehicle("KL33A1002",WHITE,TOYOTA);
-            Vehicle vehicle3 = new Vehicle("KL33A1003",WHITE,TOYOTA);
-            Vehicle vehicle4 = new Vehicle("KL33A1004",WHITE,TOYOTA);
-            Vehicle vehicle5 = new Vehicle("KL33A1005",WHITE,TOYOTA);
+        try {
+            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
+            Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
+            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
+            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA);
+            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
@@ -328,8 +329,8 @@ public class ParkingLotTest {
 
             int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
             int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
-            int  Location3 = parkingLotSystem.findMyVehicle(vehicle3);
-            int  Location4 = parkingLotSystem.findMyVehicle(vehicle4);
+            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
+            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
             int Location5 = parkingLotSystem.findMyVehicle(vehicle5);
             Assert.assertEquals(0, Location1);
             Assert.assertEquals(0, Location2);
@@ -337,7 +338,37 @@ public class ParkingLotTest {
             Assert.assertEquals(1, Location4);
             Assert.assertEquals(2, Location5);
         } catch (ParkingLotException e) {
-                e.printStackTrace();
-            }
-   }
+            e.printStackTrace();
+        }
     }
+
+    @Test
+    public void givenMultipleParkingLots_LargeVehicleShouldBeParkedInTheSlotWithHighestCapacity_ShouldParkAtLast() {
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 4);
+        try {
+            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
+            Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
+            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
+            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA);
+            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
+            parkingLotSystem.park(vehicle1, new LargeVehicleParkingStrategy());
+            parkingLotSystem.park(vehicle2, new LargeVehicleParkingStrategy());
+            parkingLotSystem.park(vehicle3, new LargeVehicleParkingStrategy());
+            parkingLotSystem.park(vehicle4, new LargeVehicleParkingStrategy());
+            parkingLotSystem.park(vehicle5, new LargeVehicleParkingStrategy());
+
+            int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
+            int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
+            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
+            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
+            int Location5 = parkingLotSystem.findMyVehicle(vehicle5);
+            Assert.assertEquals(0, Location1);
+            Assert.assertEquals(0, Location2);
+            Assert.assertEquals(0, Location3);
+            Assert.assertEquals(1, Location4);
+            Assert.assertEquals(1, Location5);
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+}

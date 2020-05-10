@@ -12,6 +12,7 @@ public class ParkingLotSystem {
     private int parkingLotCapacity;
     public ParkingLot parkingLot;
     List<ParkingLotObserver> observers;
+    private int totalSlotOccupied;
 
     public ParkingLotSystem(int noOfLots, int parkingLotCapacity) {
         observers = new ArrayList();
@@ -28,9 +29,8 @@ public class ParkingLotSystem {
     }
 
     public void park(Vehicle vehicle, ParkingStrategy strategy) throws ParkingLotException {
-        AtomicReference<Integer> totalSlotOccupied = new AtomicReference<>(0);
-        parkingLots.stream().forEach(parkingLot1 -> totalSlotOccupied.updateAndGet(v -> v + parkingLot1.noOfVehicleParked));
-        if (totalSlotOccupied.get() == parkingLotCapacity * noOfLots) {
+
+        if (totalSlotOccupied== parkingLotCapacity * noOfLots) {
             for (ParkingLotObserver observer : observers)
                 observer.parkingLotIsFull();
             throw new ParkingLotException("Parking lot is full");

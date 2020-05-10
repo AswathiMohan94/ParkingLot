@@ -7,7 +7,7 @@ public class Vehicle {
     public VehicleType vehicleType;
 
 
-    public enum VehicleColor {WHITE, BLUE, OTHER}
+    public enum VehicleColor {WHITE}
     public enum VehicleType {TOYOTA}
 
     public Vehicle(String vehicleNumberPlate, VehicleColor colour, VehicleType vehicleType) {
