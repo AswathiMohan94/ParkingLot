@@ -57,7 +57,7 @@ public class ParkingLotTest {
             ParkingLotSystem parkingLotSystem = new ParkingLotSystem(1, 3);
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
             Object isUnParked = parkingLotSystem.unPark(vehicle1);
-            Assert.assertEquals(null, isUnParked);
+            Assert.assertTrue((Boolean) isUnParked);
         } catch (ParkingLotException e) {
         }
     }
@@ -421,6 +421,27 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenThatPoliceNeedsTheListOfALLCars_ParkedInLast30Minutes() {
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
+        try {
+            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA,"Jack");
+            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA,"Jill");
+            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA,"Lilly");
+            Vehicle vehicle9 = new Vehicle("KL33A1009", BLUE, BMW,"abc");
+            Vehicle vehicle10 = new Vehicle("KL33A1010", BLUE, BMW,"xyz");
 
+            int formattedDateTime1=parkingLotSystem.getDateAndTime(vehicle1,new NormalParkingStrategy());
+            int formattedDateTime2=parkingLotSystem.getDateAndTime(vehicle3, new NormalParkingStrategy());
+            int formattedDateTime3=parkingLotSystem.getDateAndTime(vehicle4, new NormalParkingStrategy());
+            int formattedDateTime4=parkingLotSystem.getDateAndTime(vehicle5, new NormalParkingStrategy());
+            int formattedDateTime5=parkingLotSystem.getDateAndTime(vehicle9, new NormalParkingStrategy());
+            int formattedDateTime6WithTheFinalSize=parkingLotSystem.getDateAndTime(vehicle10, new NormalParkingStrategy());
+            Assert.assertEquals(6,formattedDateTime6WithTheFinalSize);
+
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

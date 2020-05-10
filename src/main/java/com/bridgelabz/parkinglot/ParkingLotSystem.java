@@ -1,11 +1,14 @@
 package com.bridgelabz.parkinglot;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
 public class ParkingLotSystem {
     private ArrayList<ParkingLot> parkingLots;
+    private  ArrayList<String> time= new ArrayList<>();
     private int noOfLots;
     private int parkingLotCapacity;
     public ParkingLot parkingLot;
@@ -13,6 +16,7 @@ public class ParkingLotSystem {
     private int totalSlotOccupied;
     private Vehicle.VehicleColor colour;
     private Vehicle vehicle;
+    private ParkingStrategy strategy;
 
     public ParkingLotSystem(int noOfLots, int parkingLotCapacity) {
         observers = new ArrayList();
@@ -94,7 +98,17 @@ public class ParkingLotSystem {
         return parkingLot.listOfOccupiedSlots;
     }
 
+    public int getDateAndTime(Vehicle vehicle, ParkingStrategy strategy) throws ParkingLotException {
+        this.vehicle=vehicle;
+        this.strategy=strategy;
+        park(vehicle,strategy);
+        LocalDateTime current = LocalDateTime.now().minusMinutes(30);
+        DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        String formattedDateTime = current.format(format);
+        time.add(formattedDateTime);
+        int sizeOfTimeArray=time.size();
+        return(sizeOfTimeArray);
 
-
+    }
 }
 
