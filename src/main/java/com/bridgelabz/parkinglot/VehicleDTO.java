@@ -1,4 +1,4 @@
-package com.bridgelabz.parkinglot;
+/*package com.bridgelabz.parkinglot;
 
 public class VehicleDTO {
 
@@ -15,4 +15,4 @@ public class VehicleDTO {
     this.slotPosition = parkingSlot.slotPosition;
     }
 
-}
+}*/

@@ -75,25 +75,10 @@ public class ParkingLotSystem {
                 }
         throw new ParkingLotException("No Such Vehicle Available");
     }
-    public void findCarsWithWhiteColor(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
-        if(this.colour==Vehicle.VehicleColor.WHITE)
-            findMyVehicle(vehicle, Vehicle.VehicleColor.WHITE);
+    public Integer findCarsWithWhiteColor(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
+        return findMyVehicle(vehicle, Vehicle.VehicleColor.WHITE);
+
     }
-
-  /*  public ArrayList<VehicleDTO> findCarsWithWhiteColor(Vehicle.VehicleColor vehicleColor, Vehicle.VehicleType vehicleType) {
-        ArrayList<ParkingSlot> slotArrayList = new ArrayList<>();
-        for (ParkingLot lot : parkingLots) {
-            List<ParkingSlot> parkingSlotList = (lot.listOfOccupiedSlots).stream()
-                    .filter(slot -> slot.vehicle != null
-                            && slot.vehicle.vehicleColor == vehicleColor && slot.vehicle.vehicleType == vehicleType)
-                    .collect(Collectors.toList());
-            slotArrayList.addAll(parkingSlotList);
-        }
-        ArrayList<VehicleDTO> vehicleDTOS = new ArrayList<>();
-        slotArrayList.stream().forEach(slot -> vehicleDTOS.add(new VehicleDTO(slot)));
-        return vehicleDTOS;
-    }*/
-
 
     public List findEmptySlots() {
         return parkingLot.listOfOccupiedSlots;

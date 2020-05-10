@@ -345,17 +345,17 @@ public class ParkingLotTest {
 
     @Test
     public void givenMultipleParkingLots_LargeVehicleShouldBeParkedInTheSlotWithHighestCapacity_ShouldParkAtLast() {
-        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 4);
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
         try {
             Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
             Vehicle vehicle2 = new Vehicle("KL33A1002", WHITE, TOYOTA);
             Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA);
             Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA);
             Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
-            parkingLotSystem.park(vehicle1, new LargeVehicleParkingStrategy());
-            parkingLotSystem.park(vehicle2, new LargeVehicleParkingStrategy());
-            parkingLotSystem.park(vehicle3, new LargeVehicleParkingStrategy());
-            parkingLotSystem.park(vehicle4, new LargeVehicleParkingStrategy());
+            parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
+            parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
+            parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
+            parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle5, new LargeVehicleParkingStrategy());
 
             int Location1 = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
@@ -367,7 +367,7 @@ public class ParkingLotTest {
             Assert.assertEquals(0, Location2);
             Assert.assertEquals(0, Location3);
             Assert.assertEquals(1, Location4);
-            Assert.assertEquals(1, Location5);
+            Assert.assertEquals(4, Location5);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -387,13 +387,13 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle5, new NormalParkingStrategy());
 
-            int Location1 = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
-            int Location2 = parkingLotSystem.findMyVehicle(vehicle2,RED);
-            int Location3 = parkingLotSystem.findMyVehicle(vehicle3,WHITE);
-            int Location4 = parkingLotSystem.findMyVehicle(vehicle4,RED);
-            int Location5 = parkingLotSystem.findMyVehicle(vehicle5,RED);
+            int Location1 = parkingLotSystem.findCarsWithWhiteColor(vehicle1,WHITE);
+            int Location2 = parkingLotSystem.findCarsWithWhiteColor(vehicle2,RED);
+            int Location3 = parkingLotSystem.findCarsWithWhiteColor(vehicle3,RED);
+            int Location4 = parkingLotSystem.findCarsWithWhiteColor(vehicle4,WHITE);
+            int Location5 = parkingLotSystem.findCarsWithWhiteColor(vehicle5,RED);
             Assert.assertEquals(0,Location1);
-            Assert.assertEquals(0,Location2);
+            Assert.assertEquals(1,Location4);
 
         } catch (ParkingLotException e) {
             e.printStackTrace();
