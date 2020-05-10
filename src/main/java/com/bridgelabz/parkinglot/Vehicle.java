@@ -1,9 +1,20 @@
 package com.bridgelabz.parkinglot;
 
 public class Vehicle {
-    private  String vehicleNumberPlate;
 
-    public Vehicle(String vehicleNumberPlate){
+    public String vehicleNumberPlate;
+    public VehicleColor vehicleColor;
+    public VehicleType vehicleType;
+
+
+    public enum VehicleColor {WHITE, BLUE, OTHER}
+    public enum VehicleType {TOYOTA}
+
+    public Vehicle(String vehicleNumberPlate, VehicleColor colour, VehicleType vehicleType) {
         this.vehicleNumberPlate=vehicleNumberPlate;
+        this.vehicleColor = colour;
+        this.vehicleType = vehicleType;
     }
+
+
 }

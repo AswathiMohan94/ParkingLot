@@ -1,34 +1,27 @@
 package com.bridgelabz.parkinglot;
 
-public class AirportSecurity implements ParkingLotObserver{
-    private int capacity;
-    private boolean isFullCapacity;
+public class AirportSecurity implements ParkingLotObserver {
 
-    public AirportSecurity(int capacity) {
-        this.capacity=capacity;
-    }
+    private Boolean parkingLotIsFull;
 
 
-    /*public AirportSecurity(int capacity) {
-        this.capacity=capacity;
-    }*/
-
-
-    @Override
-    public boolean capacityIsFull() {
-        isFullCapacity = true;
-        return false;
+    public Boolean isParkingLotFull() {
+        return parkingLotIsFull;
     }
 
     @Override
-    public boolean capacityIsAvailable() {
+    public void parkingLotIsFull() {
+        parkingLotIsFull = true;
+    }
+
+    @Override
+    public void parkingLotIsEmpty() {
+        parkingLotIsFull = false;
+    }
+
+    @Override
+    public boolean AllotVacantSlot(Object vehicle) {
         return false;
     }
 
-
-
-    public boolean isCapacityFull() {
-        return true;
-       // return this.isFullCapacity=true;
-    }
 }
