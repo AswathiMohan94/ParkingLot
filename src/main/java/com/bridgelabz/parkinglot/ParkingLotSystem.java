@@ -12,6 +12,7 @@ public class ParkingLotSystem {
     List<ParkingLotObserver> observers;
     private int totalSlotOccupied;
     private Vehicle.VehicleColor colour;
+    private Vehicle vehicle;
 
     public ParkingLotSystem(int noOfLots, int parkingLotCapacity) {
         observers = new ArrayList();
@@ -77,6 +78,9 @@ public class ParkingLotSystem {
     }
     public Integer findCarsWithWhiteColor(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
         return findMyVehicle(vehicle, Vehicle.VehicleColor.WHITE);
+    }
+    public int findCarsWithBlueColor(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
+        return findMyVehicle(vehicle, Vehicle.VehicleColor.BLUE);
 
     }
 
@@ -85,4 +89,6 @@ public class ParkingLotSystem {
     }
 
 
+
 }
+
