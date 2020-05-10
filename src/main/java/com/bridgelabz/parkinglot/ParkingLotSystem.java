@@ -2,8 +2,6 @@ package com.bridgelabz.parkinglot;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ParkingLotSystem {
@@ -13,6 +11,7 @@ public class ParkingLotSystem {
     public ParkingLot parkingLot;
     List<ParkingLotObserver> observers;
     private int totalSlotOccupied;
+    private Vehicle.VehicleColor colour;
 
     public ParkingLotSystem(int noOfLots, int parkingLotCapacity) {
         observers = new ArrayList();
@@ -30,7 +29,7 @@ public class ParkingLotSystem {
 
     public void park(Vehicle vehicle, ParkingStrategy strategy) throws ParkingLotException {
 
-        if (totalSlotOccupied== parkingLotCapacity * noOfLots) {
+        if (totalSlotOccupied == parkingLotCapacity * noOfLots) {
             for (ParkingLotObserver observer : observers)
                 observer.parkingLotIsFull();
             throw new ParkingLotException("Parking lot is full");
@@ -42,7 +41,8 @@ public class ParkingLotSystem {
         return parkingLots.stream().anyMatch(parkingLot -> parkingLot.isVehiclePark(vehicle));
 
     }
-    public boolean isSlotAvailable(Vehicle vehicle,ParkingStrategy parkingStrategy) throws ParkingLotException {
+
+    public boolean isSlotAvailable(Vehicle vehicle, ParkingStrategy parkingStrategy) throws ParkingLotException {
         for (ParkingLotObserver observer : observers) {
             boolean vacancy = observer.AllotVacantSlot(vehicle);
             if (vacancy == true) {
@@ -53,15 +53,16 @@ public class ParkingLotSystem {
         throw new ParkingLotException("Sorry no vacant slots");
 
     }
-    public boolean unPark (Object vehicle) {
-       if (vehicle == null) return false;
-       parkingLots.stream().filter(variable -> parkingLots.contains(vehicle))
-               .filter(variable -> parkingLots.remove(vehicle));
-       // observers.forEach(observer -> observer.capacityIsAvailable());
-       return true;
-   }
 
-    public Integer findMyVehicle(Vehicle vehicle) throws ParkingLotException {
+    public boolean unPark(Object vehicle) {
+        if (vehicle == null) return false;
+        parkingLots.stream().filter(variable -> parkingLots.contains(vehicle))
+                .filter(variable -> parkingLots.remove(vehicle));
+        // observers.forEach(observer -> observer.capacityIsAvailable());
+        return true;
+    }
+
+    public Integer findMyVehicle(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
         VehicleLocation location = new VehicleLocation();
         Integer noOfSlots = parkingLots.stream().findFirst().get().listOfOccupiedSlots.size();
         for (Integer slotNumber = 0; slotNumber < noOfSlots; slotNumber++)
@@ -74,8 +75,12 @@ public class ParkingLotSystem {
                 }
         throw new ParkingLotException("No Such Vehicle Available");
     }
+    public void findCarsWithWhiteColor(Vehicle vehicle, Vehicle.VehicleColor colour) throws ParkingLotException {
+        if(this.colour==Vehicle.VehicleColor.WHITE)
+            findMyVehicle(vehicle, Vehicle.VehicleColor.WHITE);
+    }
 
-    public ArrayList<VehicleDTO> findCarsWithColor(Vehicle.VehicleColor vehicleColor, Vehicle.VehicleType vehicleType) {
+  /*  public ArrayList<VehicleDTO> findCarsWithWhiteColor(Vehicle.VehicleColor vehicleColor, Vehicle.VehicleType vehicleType) {
         ArrayList<ParkingSlot> slotArrayList = new ArrayList<>();
         for (ParkingLot lot : parkingLots) {
             List<ParkingSlot> parkingSlotList = (lot.listOfOccupiedSlots).stream()
@@ -87,10 +92,12 @@ public class ParkingLotSystem {
         ArrayList<VehicleDTO> vehicleDTOS = new ArrayList<>();
         slotArrayList.stream().forEach(slot -> vehicleDTOS.add(new VehicleDTO(slot)));
         return vehicleDTOS;
-    }
+    }*/
 
 
     public List findEmptySlots() {
         return parkingLot.listOfOccupiedSlots;
     }
+
+
 }

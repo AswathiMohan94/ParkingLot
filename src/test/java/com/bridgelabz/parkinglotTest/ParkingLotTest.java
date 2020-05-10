@@ -2,10 +2,12 @@ package com.bridgelabz.parkinglotTest;
 
 import com.bridgelabz.parkinglot.*;
 import com.bridgelabz.parkinglot.ParkingAttendant;
-import org.junit.Assert;
+ import org.junit.Assert;
 import org.junit.Test;
 
-import static com.bridgelabz.parkinglot.Vehicle.VehicleColor.WHITE;
+import java.util.ArrayList;
+
+import static com.bridgelabz.parkinglot.Vehicle.VehicleColor.*;
 import static com.bridgelabz.parkinglot.Vehicle.VehicleType.TOYOTA;
 
 
@@ -241,7 +243,7 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
         } catch (Exception e) {
-            int find = parkingLotSystem.findMyVehicle(vehicle1);
+            int find = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
             Assert.assertEquals(2, find);
         }
     }
@@ -294,12 +296,11 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
             parkingLotSystem.park(vehicle5, new NormalParkingStrategy());
 
-            int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
-            int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
-            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
-            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
-            int Location5 = parkingLotSystem.findMyVehicle(vehicle5);
-
+            int Location1 = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
+            int Location2 = parkingLotSystem.findMyVehicle(vehicle2,WHITE);
+            int Location3 = parkingLotSystem.findMyVehicle(vehicle3,WHITE);
+            int Location4 = parkingLotSystem.findMyVehicle(vehicle4,WHITE);
+            int Location5 = parkingLotSystem.findMyVehicle(vehicle5,WHITE);
             Assert.assertEquals(0, Location1);
             Assert.assertEquals(0, Location2);
             Assert.assertEquals(0, Location3);
@@ -327,11 +328,11 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle5, new HandicapParkingStrategy());
 
 
-            int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
-            int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
-            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
-            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
-            int Location5 = parkingLotSystem.findMyVehicle(vehicle5);
+            int Location1 = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
+            int Location2 = parkingLotSystem.findMyVehicle(vehicle2,WHITE);
+            int Location3 = parkingLotSystem.findMyVehicle(vehicle3,WHITE);
+            int Location4 = parkingLotSystem.findMyVehicle(vehicle4,WHITE);
+            int Location5 = parkingLotSystem.findMyVehicle(vehicle5,WHITE);
             Assert.assertEquals(0, Location1);
             Assert.assertEquals(0, Location2);
             Assert.assertEquals(0, Location3);
@@ -357,11 +358,11 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle4, new LargeVehicleParkingStrategy());
             parkingLotSystem.park(vehicle5, new LargeVehicleParkingStrategy());
 
-            int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
-            int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
-            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
-            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
-            int Location5 = parkingLotSystem.findMyVehicle(vehicle5);
+            int Location1 = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
+            int Location2 = parkingLotSystem.findMyVehicle(vehicle2,WHITE);
+            int Location3 = parkingLotSystem.findMyVehicle(vehicle3,WHITE);
+            int Location4 = parkingLotSystem.findMyVehicle(vehicle4,WHITE);
+            int Location5 = parkingLotSystem.findMyVehicle(vehicle5,WHITE);
             Assert.assertEquals(0, Location1);
             Assert.assertEquals(0, Location2);
             Assert.assertEquals(0, Location3);
@@ -371,4 +372,32 @@ public class ParkingLotTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void givenMultipleParkingLotsWithCars_IfWhiteCarFound_ShouldReturnVehicle() {
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
+        try {
+            Vehicle vehicle1 = new Vehicle("KL33A1001", WHITE, TOYOTA);
+            Vehicle vehicle2 = new Vehicle("KL33A1002", RED, TOYOTA);
+            Vehicle vehicle3 = new Vehicle("KL33A1003", VIOLET, TOYOTA);
+            Vehicle vehicle4 = new Vehicle("KL33A1004", RED, TOYOTA);
+            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA);
+            parkingLotSystem.park(vehicle1, new NormalParkingStrategy());
+            parkingLotSystem.park(vehicle2, new NormalParkingStrategy());
+            parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
+            parkingLotSystem.park(vehicle4, new NormalParkingStrategy());
+            parkingLotSystem.park(vehicle5, new NormalParkingStrategy());
+
+            int Location1 = parkingLotSystem.findMyVehicle(vehicle1,WHITE);
+            int Location2 = parkingLotSystem.findMyVehicle(vehicle2,RED);
+            int Location3 = parkingLotSystem.findMyVehicle(vehicle3,WHITE);
+            int Location4 = parkingLotSystem.findMyVehicle(vehicle4,RED);
+            int Location5 = parkingLotSystem.findMyVehicle(vehicle5,RED);
+            Assert.assertEquals(0,Location1);
+            Assert.assertEquals(0,Location2);
+
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
