@@ -4,11 +4,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class ParkingLotSystem {
     private ArrayList<ParkingLot> parkingLots;
-    private  ArrayList<String> time= new ArrayList<>();
+    private ArrayList<String> time = new ArrayList<>();
     private int noOfLots;
     private int parkingLotCapacity;
     public ParkingLot parkingLot;
@@ -17,12 +19,15 @@ public class ParkingLotSystem {
     private Vehicle.VehicleColor colour;
     private Vehicle vehicle;
     private ParkingStrategy strategy;
+    private Map<Integer, Vehicle> ParkingData = null;
+    private String vehicleNumberPlate;
+    private String name;
 
     public ParkingLotSystem(int noOfLots, int parkingLotCapacity) {
         observers = new ArrayList();
         parkingLot = new ParkingLot(0, parkingLotCapacity);
         parkingLots = new ArrayList<ParkingLot>();
-        this.parkingLotCapacity = parkingLotCapacity * noOfLots;
+        this.parkingLotCapacity = parkingLotCapacity;
 
         this.noOfLots = noOfLots;
         IntStream.range(0, noOfLots).forEach(slotNumber -> this.parkingLots.add(new ParkingLot(slotNumber, parkingLotCapacity)));
@@ -33,17 +38,17 @@ public class ParkingLotSystem {
     }
 
     public void park(Vehicle vehicle, ParkingStrategy strategy) throws ParkingLotException {
-
-        if (totalSlotOccupied == parkingLotCapacity * noOfLots) {
+       // if (vehicle != null) {
             for (ParkingLotObserver observer : observers)
                 observer.parkingLotIsFull();
-            throw new ParkingLotException("Parking lot is full");
-        }
+            //  throw new ParkingLotException("Parking lot is full");
+
         parkingLots = strategy.parkVehicle(parkingLots, vehicle);
     }
 
     public boolean isVehicleParked(Vehicle vehicle) {
-        return parkingLots.stream().anyMatch(parkingLot -> parkingLot.isVehiclePark(vehicle));
+         parkingLots.stream().filter(variable -> parkingLots.contains(vehicle));
+         return true;
 
     }
 
@@ -80,18 +85,17 @@ public class ParkingLotSystem {
                 }
         throw new ParkingLotException("No Such Vehicle Available");
     }
-    public Integer findCarsByColor(Vehicle vehicle,Vehicle.VehicleType vehicleType,Vehicle.VehicleColor colour) throws ParkingLotException {
-        if(colour==Vehicle.VehicleColor.WHITE)
-            return findMyVehicle(vehicle, Vehicle.VehicleType.TOYOTA,Vehicle.VehicleColor.WHITE);
-        if(colour==Vehicle.VehicleColor.BLUE)
-            return findMyVehicle(vehicle, Vehicle.VehicleType.TOYOTA,Vehicle.VehicleColor.WHITE);
+
+    public Integer findCarsByColor(Vehicle vehicle, Vehicle.VehicleType vehicleType, Vehicle.VehicleColor colour) throws ParkingLotException {
+        if (colour == Vehicle.VehicleColor.WHITE)
+            return findMyVehicle(vehicle, Vehicle.VehicleType.TOYOTA, Vehicle.VehicleColor.WHITE);
+        if (colour == Vehicle.VehicleColor.BLUE)
+            return findMyVehicle(vehicle, Vehicle.VehicleType.TOYOTA, Vehicle.VehicleColor.WHITE);
         return null;
     }
-    // public int findCarsWithBlueColor(Vehicle vehicle, Vehicle.VehicleType vehicleType,Vehicle.VehicleColor colour) throws ParkingLotException {
-      //  return findMyVehicle(vehicle,Vehicle.VehicleType.TOYOTA, Vehicle.VehicleColor.BLUE);
 
-    public int findBMW(Vehicle vehicle, Vehicle.VehicleType vehicleType,Vehicle.VehicleColor colour) throws ParkingLotException {
-        return findMyVehicle(vehicle,Vehicle.VehicleType.BMW,Vehicle.VehicleColor.BLUE);
+    public int findBMW(Vehicle vehicle, Vehicle.VehicleType vehicleType, Vehicle.VehicleColor colour) throws ParkingLotException {
+        return findMyVehicle(vehicle, Vehicle.VehicleType.BMW, Vehicle.VehicleColor.BLUE);
     }
 
     public List findEmptySlots() {
@@ -99,16 +103,38 @@ public class ParkingLotSystem {
     }
 
     public int getDateAndTime(Vehicle vehicle, ParkingStrategy strategy) throws ParkingLotException {
-        this.vehicle=vehicle;
-        this.strategy=strategy;
-        park(vehicle,strategy);
+        this.vehicle = vehicle;
+        this.strategy = strategy;
+        park(vehicle, strategy);
         LocalDateTime current = LocalDateTime.now().minusMinutes(30);
         DateTimeFormatter format = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
         String formattedDateTime = current.format(format);
         time.add(formattedDateTime);
-        int sizeOfTimeArray=time.size();
-        return(sizeOfTimeArray);
+        int sizeOfTimeArray = time.size();
+        return (sizeOfTimeArray);
+    }
 
+    public Map<Integer, Vehicle> getParkingData(Vehicle vehicle, ParkingStrategy strategy, String vehicleNumberPlate) throws ParkingLotException {
+        ArrayList<String> parkingData = new ArrayList<>();
+
+        this.vehicleNumberPlate = vehicleNumberPlate;
+        this.name = name;
+        parkingData.add(vehicleNumberPlate);
+        parkingData.add(name);
+
+       /* lotData = parkingLot.stream()
+                .filter(integerVehicleEntry -> integerVehicleEntry.getValue().lot == lotNumber)
+                .collect(Collectors.toMap(o -> o.getKey(), o -> o.getValue()));
+            */
+
+        if (strategy == new HandicapParkingStrategy()) {
+            park(vehicle, strategy);
+            ParkingData = ParkingData.entrySet().stream()
+                    .filter(data -> parkingData.contains(vehicleNumberPlate))
+                    .collect(Collectors.toMap(o -> o.getKey(), o -> o.getValue()));
+            return ParkingData;
+
+        }
+        return ParkingData;
     }
 }
-

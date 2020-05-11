@@ -1,7 +1,6 @@
 package com.bridgelabz.parkinglot;
 
-public class
-ParkingSlot {
+public class ParkingSlot {
     public Integer slotPosition;
     public Vehicle vehicle;
 

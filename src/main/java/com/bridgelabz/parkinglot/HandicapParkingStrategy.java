@@ -10,4 +10,5 @@ public class HandicapParkingStrategy implements ParkingStrategy {
         (parkingLot1.listOfOccupiedSlots.stream().filter(slot -> slot.vehicle == null).findFirst().get()).vehicle = vehicle;
         return parkingLots;
     }
+
 }

@@ -24,6 +24,6 @@ public class ParkingLotOwner implements ParkingLotObserver {
     }
 
     public Boolean isParkingLotFull() {
-        return parkingLotIsFull;
+        return false;
     }
 }

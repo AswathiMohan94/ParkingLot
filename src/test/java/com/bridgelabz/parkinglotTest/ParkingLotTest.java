@@ -4,9 +4,7 @@ import com.bridgelabz.parkinglot.*;
 import com.bridgelabz.parkinglot.ParkingAttendant;
  import org.junit.Assert;
 import org.junit.Test;
-
-import java.util.ArrayList;
-
+import java.util.Map;
 import static com.bridgelabz.parkinglot.Vehicle.VehicleColor.*;
 import static com.bridgelabz.parkinglot.Vehicle.VehicleType.BMW;
 import static com.bridgelabz.parkinglot.Vehicle.VehicleType.TOYOTA;
@@ -422,7 +420,7 @@ public class ParkingLotTest {
         }
     }
     @Test
-    public void givenThatPoliceNeedsTheListOfALLCars_ParkedInLast30Minutes() {
+    public void givenThatPoliceNeedsNoOfVehicles_ParkedInLast30Minutes() {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
         try {
             Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA,"Jack");
@@ -438,6 +436,29 @@ public class ParkingLotTest {
             int formattedDateTime5=parkingLotSystem.getDateAndTime(vehicle9, new NormalParkingStrategy());
             int formattedDateTime6WithTheFinalSize=parkingLotSystem.getDateAndTime(vehicle10, new NormalParkingStrategy());
             Assert.assertEquals(6,formattedDateTime6WithTheFinalSize);
+
+        } catch (ParkingLotException e) {
+            e.printStackTrace();
+        }
+    }
+    @Test
+    public void givenThatPoliceNeedsInformationAndListOfCarsOfHandicappedDriver_ShouldReturnTheList() {
+        ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
+        try {
+            Vehicle vehicle3 = new Vehicle("KL33A1003", WHITE, TOYOTA,"Jack");
+//            Vehicle vehicle4 = new Vehicle("KL33A1004", WHITE, TOYOTA,"Jill");
+//            Vehicle vehicle5 = new Vehicle("KL33A1005", WHITE, TOYOTA,"Lilly");
+//            Vehicle vehicle9 = new Vehicle("KL33A1009", BLUE, BMW,"abc");
+//            Vehicle vehicle10 = new Vehicle("KL33A1010", BLUE, BMW,"xyz");
+
+            parkingLotSystem.park(vehicle1,new HandicapParkingStrategy());
+            Map<Integer, Vehicle> lotData = parkingLotSystem.getParkingData(vehicle3, new HandicapParkingStrategy(), "KL33A1003");
+            Assert.assertEquals("KL33A1003",lotData);
+//            parkingLotSystem.park(vehicle3, new NormalParkingStrategy());
+//            parkingLotSystem.park(vehicle4, new HandicapParkingStrategy());
+//            parkingLotSystem.park(vehicle5, new NormalParkingStrategy());
+//            parkingLotSystem.park(vehicle9, new NormalParkingStrategy());
+//            parkingLotSystem.park(vehicle10, new NormalParkingStrategy());
 
         } catch (ParkingLotException e) {
             e.printStackTrace();
