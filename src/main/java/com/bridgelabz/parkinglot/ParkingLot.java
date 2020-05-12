@@ -16,14 +16,14 @@ public class ParkingLot {
         IntStream.range(0, parkingLotSize).forEach(slot -> this.listOfOccupiedSlots.add(new ParkingSlot(slot,null)));
     }
 
-    public void parkVehicle(Vehicle vehicle) {
-        if(!listOfOccupiedSlots.contains(vehicle))
-            (listOfOccupiedSlots.stream().filter(slot -> slot.vehicle == (null)).findFirst().get()).vehicle=vehicle;
-        noOfVehicleParked++;
-    }
+//    public void parkVehicle(Vehicle vehicle) {
+//        if(!listOfOccupiedSlots.contains(vehicle))
+//            (listOfOccupiedSlots.stream().filter(slot -> slot.vehicle == (null)).findFirst().get()).vehicle=vehicle;
+//        noOfVehicleParked++;
+//    }
 
-    public boolean isVehiclePark(Vehicle vehicle) {
-        return listOfOccupiedSlots.stream().anyMatch(slot -> slot.equals(vehicle) );
-    }
+//    public boolean isVehiclePark(Vehicle vehicle) {
+//        return listOfOccupiedSlots.stream().anyMatch(slot -> slot.equals(vehicle) );
+//    }
 
 }

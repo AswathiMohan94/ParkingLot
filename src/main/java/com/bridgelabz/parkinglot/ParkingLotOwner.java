@@ -9,10 +9,10 @@ public class ParkingLotOwner implements ParkingLotObserver {
         parkingLotIsFull = true;
     }
 
-    @Override
-    public void parkingLotIsEmpty() {
-        parkingLotIsFull = false;
-    }
+//    @Override
+//    public void parkingLotIsEmpty() {
+//        parkingLotIsFull = false;
+//    }
 
     @Override
     public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
@@ -24,6 +24,6 @@ public class ParkingLotOwner implements ParkingLotObserver {
     }
 
     public Boolean isParkingLotFull() {
-        return false;
+        return true;
     }
 }

@@ -12,10 +12,7 @@ public class ParkingAttendant implements ParkingLotObserver {
 
     }
 
-    @Override
-    public void parkingLotIsEmpty() {
 
-    }
 
     public boolean AllotVacantSlot(Object vehicle) throws ParkingLotException {
         // if (slots.size() == (occupiedSlots - 1))
@@ -28,8 +25,8 @@ public class ParkingAttendant implements ParkingLotObserver {
         return false;
     }
 
-    public boolean findMyVehicle(Object vehicle) throws ParkingLotException {
-        slots.stream().filter(variable -> slots.contains(vehicle));
-        return true;
-    }
+//    public boolean findMyVehicle(Object vehicle) throws ParkingLotException {
+//        slots.stream().filter(variable -> slots.contains(vehicle));
+//        return true;
+//    }
 }
