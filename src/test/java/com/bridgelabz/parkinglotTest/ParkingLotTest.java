@@ -139,14 +139,14 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle3,DriverType.NORMAL_DRIVER);
             parkingLotSystem.park(vehicle4,DriverType.NORMAL_DRIVER);
 
-            int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
-            int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
-            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
-            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
-            Assert.assertEquals(0, Location1);
-            Assert.assertEquals(0, Location2);
-            Assert.assertEquals(0, Location3);
-            Assert.assertEquals(1, Location4);
+            int location1 = parkingLotSystem.findMyVehicle(vehicle1);
+            int location2 = parkingLotSystem.findMyVehicle(vehicle2);
+            int location3 = parkingLotSystem.findMyVehicle(vehicle3);
+            int location4 = parkingLotSystem.findMyVehicle(vehicle4);
+            Assert.assertEquals(0, location1);
+            Assert.assertEquals(0, location2);
+            Assert.assertEquals(0, location3);
+            Assert.assertEquals(1, location4);
         } catch (Exception e) {
 
         }
@@ -187,16 +187,16 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle4,DriverType.NORMAL_DRIVER);
             parkingLotSystem.park(vehicle6,DriverType.NORMAL_DRIVER);//large vehicle
 
-            int Location1 = parkingLotSystem.findMyVehicle(vehicle1);
-            int Location2 = parkingLotSystem.findMyVehicle(vehicle2);
-            int Location3 = parkingLotSystem.findMyVehicle(vehicle3);
-            int Location4 = parkingLotSystem.findMyVehicle(vehicle4);
-            int Location5 = parkingLotSystem.findMyVehicle(vehicle6);//large vehicle
-            Assert.assertEquals(0, Location1);
-            Assert.assertEquals(0, Location2);
-            Assert.assertEquals(0, Location3);
-            Assert.assertEquals(1, Location4);
-            Assert.assertEquals(4, Location5);
+            int location1 = parkingLotSystem.findMyVehicle(vehicle1);
+            int location2 = parkingLotSystem.findMyVehicle(vehicle2);
+            int location3 = parkingLotSystem.findMyVehicle(vehicle3);
+            int location4 = parkingLotSystem.findMyVehicle(vehicle4);
+            int location5 = parkingLotSystem.findMyVehicle(vehicle6);//large vehicle
+            Assert.assertEquals(0, location1);
+            Assert.assertEquals(0, location2);
+            Assert.assertEquals(0, location3);
+            Assert.assertEquals(1, location4);
+            Assert.assertEquals(4, location5);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
@@ -213,12 +213,12 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle5,DriverType.NORMAL_DRIVER);
 
             int Location1 = parkingLotSystem.findCarsByColor(vehicle1);//White
-            int Location2 = parkingLotSystem.findCarsByColor(vehicle5); //blue
-            int Location3 = parkingLotSystem.findCarsByColor(vehicle3);//White
-            int Location4 = parkingLotSystem.findCarsByColor(vehicle6);//blue
-            int Location5 = parkingLotSystem.findCarsByColor(vehicle7);//blue
+            int location2 = parkingLotSystem.findCarsByColor(vehicle5); //blue
+            int location3 = parkingLotSystem.findCarsByColor(vehicle3);//White
+            int location4 = parkingLotSystem.findCarsByColor(vehicle6);//blue
+            int location5 = parkingLotSystem.findCarsByColor(vehicle7);//blue
             Assert.assertEquals(0, Location1);
-            Assert.assertEquals(0, Location3);
+            Assert.assertEquals(0, location3);
 
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -235,13 +235,13 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle5,DriverType.NORMAL_DRIVER);
             parkingLotSystem.park(vehicle6,DriverType.NORMAL_DRIVER);
 
-            int Location1 = parkingLotSystem.findCarsByColor(vehicle3);
-            int Location2 = parkingLotSystem.findCarsByColor(vehicle2);
-            int Location3 = parkingLotSystem.findCarsByColor(vehicle1);
-            int Location4 = parkingLotSystem.findCarsByColor(vehicle16);// BLUE
-            int Location5 = parkingLotSystem.findCarsByColor(vehicle17);// BLUE
-            Assert.assertEquals(1, Location5);
-            Assert.assertEquals(1, Location4);
+            int location1 = parkingLotSystem.findCarsByColor(vehicle3);
+            int location2 = parkingLotSystem.findCarsByColor(vehicle2);
+            int location3 = parkingLotSystem.findCarsByColor(vehicle1);
+            int location4 = parkingLotSystem.findCarsByColor(vehicle16);// BLUE
+            int location5 = parkingLotSystem.findCarsByColor(vehicle17);// BLUE
+            Assert.assertEquals(1, location5);
+            Assert.assertEquals(1, location4);
 
         } catch (ParkingLotException e) {
             e.printStackTrace();
@@ -259,13 +259,13 @@ public class ParkingLotTest {
             parkingLotSystem.park(vehicle3,DriverType.NORMAL_DRIVER);
             parkingLotSystem.park(vehicle13,DriverType.NORMAL_DRIVER);
 
-            int Location1 = parkingLotSystem.findByModel(vehicle1);
-            int Location2 = parkingLotSystem.findByModel(vehicle2);
-            int Location3 = parkingLotSystem.findByModel(vehicle12);//BMW
-            int Location4 = parkingLotSystem.findByModel(vehicle3);
-            int Location5 = parkingLotSystem.findByModel(vehicle13);//BMW
-            Assert.assertEquals(0, Location3);
-            Assert.assertEquals(1, Location5);
+            int location1 = parkingLotSystem.findByModel(vehicle1);
+            int location2 = parkingLotSystem.findByModel(vehicle2);
+            int location3 = parkingLotSystem.findByModel(vehicle12);//BMW
+            int location4 = parkingLotSystem.findByModel(vehicle3);
+            int location5 = parkingLotSystem.findByModel(vehicle13);//BMW
+            Assert.assertEquals(0, location3);
+            Assert.assertEquals(1, location5);
         } catch (ParkingLotException e) {
             e.printStackTrace();
         }
