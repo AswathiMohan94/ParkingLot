@@ -6,7 +6,7 @@ import java.util.List;
 
 public class Vehicle {
 
-    public String vehicleNumPlate;
+    public com.bridgelabz.parkinglotMockito.VehicleTest vehicleNumPlate;
     private Vehicle vehicle;
     private VehicleDetails colour;
     public Integer lot;
