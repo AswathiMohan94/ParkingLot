@@ -55,15 +55,19 @@ public class ParkingLotSystem {
     }
 
     public boolean isSlotAvailable(Vehicle vehicle,DriverType driverType) throws ParkingLotException {
-        for (ParkingLotObserver observer : observers) {
-            boolean vacancy = observer.AllotVacantSlot(vehicle);
-            if (vacancy == true) {
-                park(vehicle,driverType);
-                return true;
+        try {
+            for (ParkingLotObserver observer : observers) {
+                boolean vacancy = observer.AllotVacantSlot(vehicle);
+                if (vacancy == true) {
+                    park(vehicle, driverType);
+                    return true;
+                }
             }
+        } catch (ParkingLotException e) {
+            throw new ParkingLotException(e.getMessage(),
+                    ParkingLotException.ExceptionType.SORRY_NO_VACANT_SLOTS);
         }
-        throw new ParkingLotException("Sorry no vacant slots");
-
+        return false;
     }
 
     public boolean unPark(Vehicle vehicle) {
@@ -76,10 +80,11 @@ public class ParkingLotSystem {
 
     public Integer findMyVehicle(Vehicle vehicle) throws ParkingLotException {
         VehicleLocation location = new VehicleLocation();
-        Integer noOfSlots = parkingLots.stream().findFirst().get().listOfOccupiedSlots.size();
-        for (Integer slotNumber = 0; slotNumber < noOfSlots; slotNumber++)
-            for (ParkingLot lot : parkingLots)
-                if (lot.listOfOccupiedSlots.get(slotNumber).vehicle == vehicle) {
+
+             Integer noOfSlots = parkingLots.stream().findFirst().get().listOfOccupiedSlots.size();
+             for (Integer slotNumber = 0; slotNumber < noOfSlots; slotNumber++)
+                for (ParkingLot lot : parkingLots)
+                   if (lot.listOfOccupiedSlots.get(slotNumber).vehicle == vehicle) {
                     location.parkingSlot = slotNumber;
                     location.parkinglot = lot.thisParkingLotNumber;
                     return location.parkingSlot;

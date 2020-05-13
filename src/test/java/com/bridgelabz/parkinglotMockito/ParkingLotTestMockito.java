@@ -1,6 +1,6 @@
 package com.bridgelabz.parkinglotMockito;
 
-import static org.mockito.Mockito.*;
+/*import static org.mockito.Mockito.*;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -342,4 +342,4 @@ public class ParkingLotTestMockito {
         }
 
     }
-}
+}*/

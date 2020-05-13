@@ -112,8 +112,8 @@ public class ParkingLotTest {
             parkingLotSystem.isSlotAvailable(vehicle1,DriverType.NORMAL_DRIVER);
             parkingLotSystem.isSlotAvailable(vehicle2,DriverType.NORMAL_DRIVER);
             parkingLotSystem.isSlotAvailable(vehicle3,DriverType.NORMAL_DRIVER);
-        } catch (Exception e) {
-            Assert.assertEquals("Sorry no vacant slots", e.getMessage());
+        } catch (ParkingLotException e) {
+            Assert.assertEquals(ParkingLotException.ExceptionType.SORRY_NO_VACANT_SLOTS, e.type);
         }
     }
 
@@ -302,11 +302,9 @@ public class ParkingLotTest {
     public void givenThatPoliceNeedsInformationAndListOfAllCarsParkedInALot_ShouldReturnTheList() {
         ParkingLotSystem parkingLotSystem = new ParkingLotSystem(3, 5);
         try {
-            parkingLotSystem.park(vehicle3,DriverType.NORMAL_DRIVER);
             parkingLotSystem.park(vehicle14,DriverType.NORMAL_DRIVER);
             parkingLotSystem.park(vehicle15,DriverType.NORMAL_DRIVER);
             Vehicle fraud = parkingLotSystem.findFraudulentlyNumPlate();
-            System.out.println(fraud);
             Assert.assertEquals("KL33A10014",fraud.vehicleNumPlate);
         } catch (ParkingLotException e) {
             e.printStackTrace();
